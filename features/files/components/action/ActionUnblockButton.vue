@@ -1,0 +1,11 @@
+<template>
+  <v-btn
+    rounded="pill"
+    color="warning"
+    size="small"
+    prepend-icon="mdi-lock-open-variant-outline"
+    variant="tonal"
+  >
+    <slot>Unblock</slot>
+  </v-btn>
+</template>

@@ -16,14 +16,7 @@
           <td>{{ file.fileName }}</td>
           <td>{{ file.fileSize }}</td>
           <td>
-            <v-chip
-              :color="`${colorStatus(file.status)}-lighten-4`"
-              variant="flat"
-              class="ml-0 mr-2"
-              x-small
-            >
-              {{ file.status }}
-            </v-chip>
+            <file-status-chip :status="file.status" />
           </td>
           <td>{{ file.uploadedAt }}</td>
           <td class="py-2">
@@ -35,40 +28,23 @@
             </div>
           </td>
           <td>
-            <v-btn
+            <action-download-button
               v-if="file.status === FileStatusEnum.Open"
-              rounded="pill"
-              color="info"
-              size="small"
-              prepend-icon="mdi-download"
-              variant="tonal"
               class="mr-2"
-            >
-              Download
-            </v-btn>
-            <v-btn
+            />
+            <action-block-button
               v-if="file.status === FileStatusEnum.Open"
-              rounded="pill"
-              color="error"
-              size="small"
-              prepend-icon="mdi-block-helper"
-              variant="tonal"
               class="mr-2"
               @click.stop="requestFileAction('block')"
             >
               Request Block
-            </v-btn>
-            <v-btn
+            </action-block-button>
+            <action-unblock-button
               v-if="file.status === FileStatusEnum.Blocked"
-              rounded="pill"
-              color="warning"
-              size="small"
-              prepend-icon="mdi-lock-open-variant-outline"
-              variant="tonal"
               @click.stop="requestFileAction('unblock')"
             >
               Request Unblock
-            </v-btn>
+            </action-unblock-button>
           </td>
         </tr>
       </tbody>
@@ -91,10 +67,6 @@ import { mockFilesList } from '~/mocks/data/files-list';
 // todo: get this from service on created
 const filesList = reactive(mockFilesList);
 
-const colorStatus = (status: FileStatusEnum): 'teal' | 'red' => {
-  return status === FileStatusEnum.Open ? 'teal' : 'red';
-};
-
 const requestActionModal = reactive<{
   show: boolean;
   action: 'block' | 'unblock';
@@ -111,6 +83,7 @@ const requestFileAction = (action: 'block' | 'unblock') => {
 const submitReason = (reason: string) => {
   requestActionModal.show = false;
   // todo: send request to backend
+  // eslint-disable-next-line no-console
   console.log(reason);
 };
 </script>

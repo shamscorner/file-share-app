@@ -1,0 +1,11 @@
+<template>
+  <v-btn
+    rounded="pill"
+    color="error"
+    size="small"
+    prepend-icon="mdi-block-helper"
+    variant="tonal"
+  >
+    <slot>Block</slot>
+  </v-btn>
+</template>

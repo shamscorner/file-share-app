@@ -1,0 +1,11 @@
+<template>
+  <v-btn
+    rounded="pill"
+    color="info"
+    size="small"
+    prepend-icon="mdi-download"
+    variant="tonal"
+  >
+    Download
+  </v-btn>
+</template>
