@@ -1,5 +1,3 @@
 <template>
-  <div>
-    Welcome to File Sharing Application!
-  </div>
+  <div>Welcome to File Sharing Application!</div>
 </template>
