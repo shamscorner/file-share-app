@@ -30,4 +30,7 @@ export default defineNuxtConfig({
       'process.env.DEBUG': false,
     },
   },
+  components: {
+    dirs: ['~/components', '~/features/downloads/components'],
+  },
 });

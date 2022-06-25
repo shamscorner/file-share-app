@@ -28,7 +28,7 @@
   </v-app>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const drawer = ref(true);
 const title = ref('Awesome File Sharing');
 
