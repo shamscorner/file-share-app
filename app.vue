@@ -1,3 +1,5 @@
 <template>
-  <div>Welcome to File Sharing Application!</div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
