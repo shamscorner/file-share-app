@@ -9,6 +9,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "prepare": "husky install",
     "lint": "eslint . --ext .ts,.vue",
     "format-check": "npx prettier --check ./",
     "format-write": "npx prettier --write ./"
