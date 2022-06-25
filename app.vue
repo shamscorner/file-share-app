@@ -1,5 +1,5 @@
 <template>
   <div>
-    <NuxtWelcome />
+    Welcome to File Sharing Application!
   </div>
 </template>
