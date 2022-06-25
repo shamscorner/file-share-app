@@ -110,6 +110,7 @@ const requestFileAction = (action: 'block' | 'unblock') => {
 
 const submitReason = (reason: string) => {
   requestActionModal.show = false;
+  // todo: send request to backend
   console.log(reason);
 };
 </script>

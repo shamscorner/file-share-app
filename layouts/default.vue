@@ -38,5 +38,10 @@ const items = ref([
     title: 'Home',
     to: '/',
   },
+  {
+    icon: 'mdi-file-multiple',
+    title: 'My Files',
+    to: '/my-files',
+  },
 ]);
 </script>
