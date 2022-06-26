@@ -40,16 +40,6 @@
           <td>
             <v-btn
               rounded="pill"
-              color="primary"
-              size="small"
-              prepend-icon="mdi-pencil"
-              variant="tonal"
-              class="mr-2"
-            >
-              Edit
-            </v-btn>
-            <v-btn
-              rounded="pill"
               color="red"
               size="small"
               prepend-icon="mdi-delete"
