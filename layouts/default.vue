@@ -1,12 +1,12 @@
 <template>
-  <v-app dark class="app">
-    <v-app-bar elevation="0" color="grey-darken-3" prominent fixed app>
+  <v-app class="app">
+    <v-app-bar elevation="0" color="grey-darken-3" density="compact">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="ml-5" v-text="title" />
       <v-spacer />
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" fixed app>
+    <v-navigation-drawer v-model="drawer" width="200">
       <v-list nav class="mt-5">
         <v-list-item
           v-for="(item, i) in items"
@@ -21,7 +21,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container>
+      <v-container fluid>
         <slot />
       </v-container>
     </v-main>
@@ -43,6 +43,7 @@
 
 <script setup lang="ts">
 import { useAlertDialogStore } from '~/stores';
+
 const drawer = ref(true);
 const title = ref('Awesome File Sharing');
 

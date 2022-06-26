@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="mb-2">
+      <v-btn flat color="info"> Upload Files </v-btn>
+    </div>
     <v-table>
       <thead>
         <tr>
