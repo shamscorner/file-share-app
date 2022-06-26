@@ -61,6 +61,7 @@ import { FileStatusEnum, FileType } from '~/features/files/types';
 import { getFilesService } from '~/features/files/services/get-files.service';
 import { useRequestActionModal } from '~/features/downloads/composables/useRequestActionModal';
 
+const { addAlertDialog } = useAlertDialog();
 const { requestActionModal, requestFileAction } = useRequestActionModal();
 
 const filesList = ref<FileType[]>([]);
@@ -80,10 +81,17 @@ const submitReason = async (reason: string) => {
     requestActionModal.action
   );
 
-  if (response) {
-    // todo: show success alert dialog and return
+  if (!response) {
+    addAlertDialog({
+      bodyText: 'Something went wrong!',
+      type: 'error',
+    });
+    return;
   }
 
-  // todo: show error alert dialog
+  addAlertDialog({
+    bodyText: 'Request has been sent successfully!',
+    type: 'success',
+  });
 };
 </script>

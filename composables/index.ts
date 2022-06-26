@@ -8,3 +8,4 @@ export const getRandomIntInclusive = (
 };
 
 export { useConfirmationModal } from './useConfirmationModal';
+export { useAlertDialog } from './useAlertDialog';
