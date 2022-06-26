@@ -74,7 +74,7 @@ const { alertDialogsRemaining, hideDialog } = useAlertDialogStore();
 
   &__alert-dialogs-wrap {
     position: fixed;
-    top: 30px;
+    top: 10px;
     z-index: 99999;
     right: 20px;
     display: flex;

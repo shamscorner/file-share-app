@@ -7,27 +7,16 @@
         </span>
       </v-card-title>
       <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-form
-                ref="form"
-                v-model="valid"
-                lazy-validation
-                @submit.prevent=""
-              >
-                <v-textarea
-                  id="input-reason"
-                  v-model="formData.reason"
-                  label="Enter Reasons"
-                  auto-grow
-                  required
-                ></v-textarea>
-              </v-form>
-            </v-col>
-          </v-row>
-        </v-container>
-        <small>*indicates required field</small>
+        <v-form ref="form" v-model="valid" lazy-validation @submit.prevent="">
+          <v-textarea
+            id="input-reason"
+            v-model="formData.reason"
+            label="Enter Reasons"
+            :rules="[(v) => !!v || 'Required']"
+            auto-grow
+            required
+          ></v-textarea>
+        </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -56,18 +45,18 @@ const emit = defineEmits<{
   (event: 'submit', value: string): void;
 }>();
 
+const form = ref<{ validate: () => void } | null>(null);
 const valid = ref(true);
 const formData = reactive({
   reason: '',
 });
 
 const submit = () => {
-  valid.value = true;
-
-  if (!formData.reason) {
-    valid.value = false;
-    return;
+  if (form.value) {
+    form.value.validate();
   }
+
+  if (!valid.value) return;
 
   emit('submit', formData.reason);
 };
