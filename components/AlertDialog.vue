@@ -3,6 +3,7 @@
     :type="props.dialog.type"
     :elevation="4"
     closable
+    class="mt-4"
     @input="emit('hide', props.dialog.id)"
   >
     {{ props.dialog.bodyText }}

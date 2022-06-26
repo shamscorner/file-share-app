@@ -2,28 +2,7 @@ import { defineStore } from 'pinia';
 import { AlertDialogType } from '.';
 
 export const useAlertDialogStore = defineStore('alert-dialog', () => {
-  const alertDialogs = ref<AlertDialogType[]>([
-    // {
-    //   bodyText: 'Alert dialog 1',
-    //   type: 'success',
-    //   id: '1',
-    // },
-    // {
-    //   bodyText: 'Alert dialog 1',
-    //   type: 'error',
-    //   id: '2',
-    // },
-    // {
-    //   bodyText: 'Alert dialog 3',
-    //   type: 'warning',
-    //   id: '2',
-    // },
-    // {
-    //   bodyText: 'Alert dialog 4',
-    //   type: 'info',
-    //   id: '4',
-    // },
-  ]);
+  const alertDialogs = ref<AlertDialogType[]>([]);
 
   const alertDialogsRemaining = computed(() => alertDialogs.value);
 
