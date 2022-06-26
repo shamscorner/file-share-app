@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { AlertDialogType } from '~/composables/useAlertDialog';
+import { AlertDialogType } from '~/stores';
 
 interface Props {
   dialog: AlertDialogType;

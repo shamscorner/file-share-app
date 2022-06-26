@@ -38,4 +38,5 @@ export default defineNuxtConfig({
       '~/features/requests/components',
     ],
   },
+  buildModules: ['@pinia/nuxt'],
 });

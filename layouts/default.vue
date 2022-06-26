@@ -42,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import { useAlertDialogStore } from '~/stores';
 const drawer = ref(true);
 const title = ref('Awesome File Sharing');
 
@@ -63,7 +64,7 @@ const items = ref([
   },
 ]);
 
-const { alertDialogsRemaining, hideDialog } = useAlertDialog();
+const { alertDialogsRemaining, hideDialog } = useAlertDialogStore();
 </script>
 
 <style lang="scss">
