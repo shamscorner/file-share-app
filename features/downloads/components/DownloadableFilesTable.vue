@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <v-table>
       <thead>
         <tr>
@@ -52,10 +52,11 @@
         @submit="submitReason"
       />
     </ClientOnly>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+import { sendFileActionRequest } from '../services/send-action-request.service';
 import { FileStatusEnum, FileType } from '~/features/files/types';
 import { getFilesService } from '~/features/files/services/get-files.service';
 import { useRequestActionModal } from '~/features/downloads/composables/useRequestActionModal';
@@ -71,10 +72,18 @@ onMounted(async () => {
   filesList.value = files;
 });
 
-const submitReason = (reason: string) => {
+const submitReason = async (reason: string) => {
   requestActionModal.show = false;
-  // todo: send request to backend
-  // eslint-disable-next-line no-console
-  console.log(reason);
+
+  const response = await sendFileActionRequest(
+    reason,
+    requestActionModal.action
+  );
+
+  if (response) {
+    // todo: show success alert dialog and return
+  }
+
+  // todo: show error alert dialog
 };
 </script>
