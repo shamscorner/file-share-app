@@ -72,11 +72,7 @@
 
 <script setup lang="ts">
 import { getRequestsService } from '../services/get-requests.service';
-import {
-  RequestActionTypes,
-  RequestActionEnum,
-  RequestType,
-} from '~/features/requests/types';
+import { RequestActionEnum, RequestType } from '~/features/requests/types';
 import { FileStatusEnum } from '~/features/files/types';
 
 const requestsList = ref<RequestType[]>([]);
@@ -86,17 +82,6 @@ onMounted(async () => {
   if (!requests) return;
 
   requestsList.value = requests;
-});
-
-// todo: refactor to composable
-const confirmationModal = reactive<{
-  show: boolean;
-  body: string;
-  action: RequestActionTypes;
-}>({
-  show: false,
-  body: '',
-  action: 'reject',
 });
 
 const actions = {
@@ -111,11 +96,9 @@ const actions = {
   },
 };
 
-const openConfirmationDialog = (action: 'block' | 'unblock' | 'reject') => {
-  actions[action]();
-  confirmationModal.action = action;
-  confirmationModal.show = true;
-};
+const { confirmationModal, openConfirmationDialog } = useConfirmationModal({
+  actions,
+});
 
 // todo: refactor to composable
 // const actions = {

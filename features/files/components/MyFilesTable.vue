@@ -72,11 +72,7 @@
 
 <script setup lang="ts">
 import { getMyFilesService } from '../services/get-my-files.service';
-import {
-  FileActionTypes,
-  FileStatusEnum,
-  FileType,
-} from '~/features/files/types';
+import { FileStatusEnum, FileType } from '~/features/files/types';
 
 const filesList = ref<FileType[]>([]);
 
@@ -85,17 +81,6 @@ onMounted(async () => {
   if (!files) return;
 
   filesList.value = files;
-});
-
-// todo: refactor to composable
-const confirmationModal = reactive<{
-  show: boolean;
-  body: string;
-  action: Partial<FileActionTypes>;
-}>({
-  show: false,
-  body: '',
-  action: 'delete',
 });
 
 const actions = {
@@ -110,11 +95,9 @@ const actions = {
   },
 };
 
-const openConfirmationDialog = (action: 'block' | 'unblock' | 'delete') => {
-  actions[action]();
-  confirmationModal.action = action;
-  confirmationModal.show = true;
-};
+const { confirmationModal, openConfirmationDialog } = useConfirmationModal({
+  actions,
+});
 
 // todo: refactor to composable
 // const actions = {

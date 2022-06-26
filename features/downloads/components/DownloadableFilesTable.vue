@@ -60,8 +60,9 @@ import { FileStatusEnum, FileType } from '~/features/files/types';
 import { getFilesService } from '~/features/files/services/get-files.service';
 import { useRequestActionModal } from '~/features/downloads/composables/useRequestActionModal';
 
-const filesList = ref<FileType[]>([]);
 const { requestActionModal, requestFileAction } = useRequestActionModal();
+
+const filesList = ref<FileType[]>([]);
 
 onMounted(async () => {
   const files = await getFilesService();
