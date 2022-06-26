@@ -10,12 +10,10 @@
 </template>
 
 <script setup lang="ts">
+import { UserType } from '~/features/users/types';
+
 interface Props {
-  user: {
-    firstName: string;
-    lastName: string;
-    avatar?: string | null;
-  };
+  user: UserType;
 }
 
 const props = defineProps<Props>();

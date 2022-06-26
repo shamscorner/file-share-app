@@ -35,6 +35,7 @@ export default defineNuxtConfig({
       '~/components',
       '~/features/downloads/components',
       '~/features/files/components',
+      '~/features/requests/components',
     ],
   },
 });

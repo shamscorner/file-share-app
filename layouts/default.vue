@@ -43,5 +43,10 @@ const items = ref([
     title: 'My Files',
     to: '/my-files',
   },
+  {
+    icon: 'mdi-bell-badge',
+    title: 'Requests',
+    to: '/requests',
+  },
 ]);
 </script>

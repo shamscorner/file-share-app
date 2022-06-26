@@ -20,12 +20,7 @@
           </td>
           <td>{{ file.uploadedAt }}</td>
           <td class="py-2">
-            <div class="d-flex align-center">
-              <profile-avatar :user="file.owner" class="flex-shrink-0" />
-              <div class="ml-2">
-                {{ `${file.owner.firstName} ${file.owner.lastName}` }}
-              </div>
-            </div>
+            <user-profile :user="file.owner" />
           </td>
           <td>
             <action-download-button
