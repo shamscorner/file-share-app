@@ -71,11 +71,21 @@
 </template>
 
 <script setup lang="ts">
-import { FileActionTypes, FileStatusEnum } from '~/features/files/types';
-import { mockFilesList } from '~/mocks/data/files-list';
+import { getMyFilesService } from '../services/get-my-files.service';
+import {
+  FileActionTypes,
+  FileStatusEnum,
+  FileType,
+} from '~/features/files/types';
 
-// todo: get this from service on created
-const filesList = reactive(mockFilesList);
+const filesList = ref<FileType[]>([]);
+
+onMounted(async () => {
+  const files = await getMyFilesService();
+  if (!files) return;
+
+  filesList.value = files;
+});
 
 // todo: refactor to composable
 const confirmationModal = reactive<{

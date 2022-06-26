@@ -71,15 +71,22 @@
 </template>
 
 <script setup lang="ts">
+import { getRequestsService } from '../services/get-requests.service';
 import {
   RequestActionTypes,
   RequestActionEnum,
+  RequestType,
 } from '~/features/requests/types';
 import { FileStatusEnum } from '~/features/files/types';
-import { mockRequestsList } from '~/mocks/data/requests-list';
 
-// todo: get this from service on created
-const requestsList = reactive(mockRequestsList);
+const requestsList = ref<RequestType[]>([]);
+
+onMounted(async () => {
+  const requests = await getRequestsService();
+  if (!requests) return;
+
+  requestsList.value = requests;
+});
 
 // todo: refactor to composable
 const confirmationModal = reactive<{

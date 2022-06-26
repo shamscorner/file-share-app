@@ -56,11 +56,17 @@
 </template>
 
 <script setup lang="ts">
-import { FileStatusEnum } from '~/features/files/types';
-import { mockFilesList } from '~/mocks/data/files-list';
+import { FileStatusEnum, FileType } from '~/features/files/types';
+import { getFilesService } from '~~/features/files/services/get-files.service';
 
-// todo: get this from service on created
-const filesList = reactive(mockFilesList);
+const filesList = ref<FileType[]>([]);
+
+onMounted(async () => {
+  const files = await getFilesService();
+  if (!files) return;
+
+  filesList.value = files;
+});
 
 const requestActionModal = reactive<{
   show: boolean;
