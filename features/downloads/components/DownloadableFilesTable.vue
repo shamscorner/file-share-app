@@ -57,9 +57,11 @@
 
 <script setup lang="ts">
 import { FileStatusEnum, FileType } from '~/features/files/types';
-import { getFilesService } from '~~/features/files/services/get-files.service';
+import { getFilesService } from '~/features/files/services/get-files.service';
+import { useRequestActionModal } from '~/features/downloads/composables/useRequestActionModal';
 
 const filesList = ref<FileType[]>([]);
+const { requestActionModal, requestFileAction } = useRequestActionModal();
 
 onMounted(async () => {
   const files = await getFilesService();
@@ -67,19 +69,6 @@ onMounted(async () => {
 
   filesList.value = files;
 });
-
-const requestActionModal = reactive<{
-  show: boolean;
-  action: 'block' | 'unblock';
-}>({
-  show: false,
-  action: 'block',
-});
-
-const requestFileAction = (action: 'block' | 'unblock') => {
-  requestActionModal.action = action;
-  requestActionModal.show = true;
-};
 
 const submitReason = (reason: string) => {
   requestActionModal.show = false;
