@@ -1,8 +1,10 @@
 <template>
   <v-dialog :model-value="props.show" persistent max-width="620">
     <v-card>
-      <v-card-title class="text-h5">
-        <slot name="title"> Are you sure? </slot>
+      <v-card-title>
+        <span class="text-h5">
+          <slot name="title"> Are you sure? </slot>
+        </span>
       </v-card-title>
       <v-card-text>
         <slot> Do you really want to perform this action? </slot>

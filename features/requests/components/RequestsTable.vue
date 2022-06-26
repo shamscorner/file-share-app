@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <v-table>
       <thead>
         <tr>
@@ -60,14 +60,15 @@
     </v-table>
 
     <ClientOnly>
-      <confirmation-modal
+      <confirm-modal
         v-model:show="confirmationModal.show"
         :action="(confirmationModal.action as string)"
         @confirmed="performRequestAction"
       >
-      </confirmation-modal>
+        {{ confirmationModal.body }}
+      </confirm-modal>
     </ClientOnly>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

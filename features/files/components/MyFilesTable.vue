@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <div class="mb-2">
       <v-btn flat color="info"> Upload Files </v-btn>
     </div>
@@ -64,14 +64,15 @@
     </v-table>
 
     <ClientOnly>
-      <confirmation-modal
+      <confirm-modal
         v-model:show="confirmationModal.show"
         :action="(confirmationModal.action as string)"
         @confirmed="performFileAction"
       >
-      </confirmation-modal>
+        {{ confirmationModal.body }}
+      </confirm-modal>
     </ClientOnly>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
