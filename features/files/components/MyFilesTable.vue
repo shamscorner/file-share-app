@@ -11,6 +11,7 @@
           <th class="text-left">Status</th>
           <th class="text-left">Uploaded at</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
