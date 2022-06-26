@@ -5,6 +5,8 @@ export enum FileStatusEnum {
   Blocked = 'Blocked',
 }
 
+export type FileActionTypes = 'block' | 'unblock' | 'edit' | 'delete';
+
 export type FileType = {
   id: string;
   fileName: string;
