@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia';
-import { AlertDialogType } from '.';
+
+export type AlertDialogType = {
+  type?: 'success' | 'info' | 'warning' | 'error';
+  bodyText: string;
+  id: string;
+};
 
 export const useAlertDialogStore = defineStore('alert-dialog', () => {
   const alertDialogs = ref<AlertDialogType[]>([]);

@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAlertDialogStore } from '~/stores';
+import { useAlertDialogStore } from '~/stores/useAlertDialog';
 
 const drawer = ref(true);
 const title = ref('Awesome File Sharing');

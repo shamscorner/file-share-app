@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import { FileStatusEnum, FileType } from '~/modules/files/types';
-import { useAlertDialogStore } from '~/stores';
+import { useAlertDialogStore } from '~/stores/useAlertDialog';
 
 const { addAlertDialog } = useAlertDialogStore();
 const { requestActionModal, requestFileAction } = useRequestActionModal();
