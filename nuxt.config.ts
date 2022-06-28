@@ -34,7 +34,6 @@ export default defineNuxtConfig({
   components: {
     dirs: [
       '~/components',
-      // '~/features/downloads/components',
       '~/features/files/components',
       '~/features/requests/components',
     ],
