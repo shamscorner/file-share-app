@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '~/modules/downloads/module',
     '~/modules/files/module',
     '~/modules/requests/module',
+    '~/modules/users/module',
   ],
   typescript: {
     strict: true,

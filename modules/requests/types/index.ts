@@ -1,5 +1,5 @@
 import { FileType } from '~/modules/files/types';
-import { UserType } from '~/features/users/types';
+import { UserType } from '~/modules/users/types';
 
 export enum RequestActionEnum {
   Block = 'Block',

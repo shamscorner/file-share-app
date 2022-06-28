@@ -1,4 +1,4 @@
-import { UserType } from '~/features/users/types';
+import { UserType } from '~/modules/users/types';
 
 export enum FileStatusEnum {
   Open = 'Open',
