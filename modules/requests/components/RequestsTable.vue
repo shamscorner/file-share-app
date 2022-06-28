@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 import { getRequestsService } from '../services/get-requests.service';
-import { RequestActionEnum, RequestType } from '~/features/requests/types';
+import { RequestActionEnum, RequestType } from '../types';
 import { FileStatusEnum } from '~/modules/files/types';
 
 const requestsList = ref<RequestType[]>([]);

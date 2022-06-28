@@ -2,6 +2,11 @@ import { defineNuxtConfig } from 'nuxt';
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  modules: [
+    '~/modules/downloads/module',
+    '~/modules/files/module',
+    '~/modules/requests/module',
+  ],
   typescript: {
     strict: true,
   },
@@ -31,9 +36,5 @@ export default defineNuxtConfig({
       'process.env.DEBUG': false,
     },
   },
-  components: {
-    dirs: ['~/components', '~/features/requests/components'],
-  },
   buildModules: ['@pinia/nuxt'],
-  modules: ['~/modules/downloads/module', '~/modules/files/module'],
 });

@@ -1,4 +1,4 @@
-import { RequestType, RequestActionEnum } from '~/features/requests/types';
+import { RequestType, RequestActionEnum } from '~/modules/requests/types';
 import { mockFilesList } from '~/mocks/data/files-list';
 
 export const mockRequestsList: RequestType[] = [
