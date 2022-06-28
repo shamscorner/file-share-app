@@ -1,6 +1,8 @@
 import { join, resolve } from 'path';
 import { defineNuxtModule } from '@nuxt/kit';
 
+const AUTO_IMPORT_DIRS = ['./composables', './services'];
+
 export default defineNuxtModule({
   meta: {
     name: 'module-requests',
@@ -14,9 +16,11 @@ export default defineNuxtModule({
       });
     });
 
-    // Auto register composables
+    // Auto register
     nuxt.hook('autoImports:dirs', (dirs) => {
-      dirs.push(resolve(__dirname, './composables'));
+      AUTO_IMPORT_DIRS.forEach((dir) => {
+        dirs.push(resolve(__dirname, dir));
+      });
     });
 
     // Auto register pages

@@ -56,8 +56,6 @@
 </template>
 
 <script setup lang="ts">
-import { sendFileActionRequest } from '../services/send-action-request.service';
-import { getFilesService } from '~/modules/files/services/get-files.service';
 import { FileStatusEnum, FileType } from '~/modules/files/types';
 import { useAlertDialogStore } from '~/stores';
 
