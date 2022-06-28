@@ -32,12 +32,8 @@ export default defineNuxtConfig({
     },
   },
   components: {
-    dirs: [
-      '~/components',
-      '~/features/files/components',
-      '~/features/requests/components',
-    ],
+    dirs: ['~/components', '~/features/requests/components'],
   },
   buildModules: ['@pinia/nuxt'],
-  modules: ['~/modules/downloads/module'],
+  modules: ['~/modules/downloads/module', '~/modules/files/module'],
 });

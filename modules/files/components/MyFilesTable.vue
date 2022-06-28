@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 import { getMyFilesService } from '../services/get-my-files.service';
-import { FileStatusEnum, FileType } from '~/features/files/types';
+import { FileStatusEnum, FileType } from '../types';
 
 const filesList = ref<FileType[]>([]);
 

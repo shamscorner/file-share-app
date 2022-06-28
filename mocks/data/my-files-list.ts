@@ -1,4 +1,4 @@
-import { FileType, FileStatusEnum } from '~/features/files/types';
+import { FileType, FileStatusEnum } from '~/modules/files/types';
 
 export const mockMyFilesList: FileType[] = [
   {
