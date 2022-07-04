@@ -14,7 +14,7 @@
       <tbody>
         <tr v-for="file in filesResponse.data" :key="file.id">
           <td>{{ file.name }}</td>
-          <td>{{ file.size }}</td>
+          <td>{{ useHumanByteFormat(file.size) }}</td>
           <td>
             <file-status-chip :status="file.status" />
           </td>
