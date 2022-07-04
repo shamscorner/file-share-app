@@ -16,6 +16,7 @@ export const sendFileActionRequest = async (
           actionType,
         },
         baseURL: apiBaseUrl,
+        credentials: 'include',
       }
     );
 
