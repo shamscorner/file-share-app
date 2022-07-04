@@ -1,7 +1,16 @@
 <template>
   <section>
     <div class="mb-2">
-      <v-btn flat color="info"> Upload Files </v-btn>
+      <v-file-input
+        v-model="inputFile.data"
+        label="File input"
+        outlined
+        dense
+        :show-size="1024"
+        :loading="inputFile.uploading"
+        style="max-width: 600px"
+        @change="uploadFile"
+      ></v-file-input>
     </div>
     <v-table>
       <thead>
@@ -21,7 +30,9 @@
           <td>
             <file-status-chip :status="file.status" />
           </td>
-          <td>{{ $dayjs(file.downloadedAt).fromNow() }}</td>
+          <td>
+            {{ $dayjs(file.downloadedAt).utc().format('DD-MM-YY | hh:mm:ss') }}
+          </td>
           <td>
             <action-download-button
               class="mr-2"
@@ -66,14 +77,38 @@
 </template>
 
 <script setup lang="ts">
-import { FileStatusEnum } from '../types';
+import { FileStatusEnum, FileType } from '../types';
 import { USER_LOCAL_KEY } from '~/constants';
 import { UserType } from '~/modules/users/types';
-import { errorType } from '~/modules/common/types';
+import { errorType, GlobalResponseType } from '~/modules/common/types';
 import { useAlertDialogStore } from '~/stores/useAlertDialog';
 
 const { getFromLocalStorage } = useLocalStorage();
 const { addAlertDialog } = useAlertDialogStore();
+
+const inputFile = ref<{ data?: any; uploading: boolean }>({
+  uploading: false,
+});
+
+const uploadFile = async () => {
+  const response = await uploadFileService(inputFile.value.data[0]);
+
+  if (!response.successful) {
+    addAlertDialog({
+      bodyText: (response as errorType).message,
+      type: 'error',
+    });
+    return;
+  }
+
+  filesResponse.data.unshift((response as GlobalResponseType<FileType>).data);
+  inputFile.value.data = '';
+
+  addAlertDialog({
+    bodyText: 'File has been uploaded successfully!',
+    type: 'success',
+  });
+};
 
 const currentUser = getFromLocalStorage<UserType>(USER_LOCAL_KEY);
 const { filesResponse } = reactive(useFilesResponse(currentUser.id));

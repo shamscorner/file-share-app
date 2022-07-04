@@ -1,9 +1,9 @@
+/* eslint-disable import/no-named-as-default-member */
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
+import utc from 'dayjs/plugin/utc';
 
 export default defineNuxtPlugin((nuxtApp) => {
-  // eslint-disable-next-line import/no-named-as-default-member
-  dayjs.extend(relativeTime);
+  dayjs.extend(utc);
   nuxtApp.provide('dayjs', dayjs);
 });
 

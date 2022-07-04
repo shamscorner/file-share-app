@@ -19,7 +19,7 @@
             <file-status-chip :status="file.status" />
           </td>
           <td>
-            {{ $dayjs(file.downloadedAt).fromNow() }}
+            {{ $dayjs(file.downloadedAt).utc().format('DD-MM-YY | hh:mm:ss') }}
           </td>
           <td class="py-2">
             <user-profile v-if="file.owner" :user="file.owner" />
