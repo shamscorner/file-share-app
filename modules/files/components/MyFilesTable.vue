@@ -9,19 +9,19 @@
           <th class="text-left">Name</th>
           <th class="text-left">Size</th>
           <th class="text-left">Status</th>
-          <th class="text-left">Uploaded at</th>
+          <th class="text-left">Last Downloaded</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="file in filesList" :key="file.id">
-          <td>{{ file.fileName }}</td>
-          <td>{{ file.fileSize }}</td>
+        <tr v-for="file in filesResponse.data" :key="file.id">
+          <td>{{ file.name }}</td>
+          <td>{{ file.size }}</td>
           <td>
             <file-status-chip :status="file.status" />
           </td>
-          <td>{{ file.uploadedAt }}</td>
+          <td>{{ $dayjs(file.downloadedAt).fromNow() }}</td>
           <td>
             <action-download-button
               v-if="file.status === FileStatusEnum.Open"
@@ -66,17 +66,14 @@
 </template>
 
 <script setup lang="ts">
-import { getMyFilesService } from '../services/get-my-files.service';
-import { FileStatusEnum, FileType } from '../types';
+import { FileStatusEnum } from '../types';
+import { USER_LOCAL_KEY } from '~/constants';
+import { UserType } from '~~/modules/users/types';
 
-const filesList = ref<FileType[]>([]);
+const { getFromLocalStorage } = useLocalStorage();
 
-onMounted(async () => {
-  const files = await getMyFilesService();
-  if (!files) return;
-
-  filesList.value = files;
-});
+const currentUser = getFromLocalStorage<UserType>(USER_LOCAL_KEY);
+const { filesResponse } = reactive(useFilesResponse(currentUser.id));
 
 const actions = {
   block: () => {

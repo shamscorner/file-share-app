@@ -1,4 +1,5 @@
-import { apiBaseUrl } from '@/constants';
+import { UserType } from '../types';
+import { API_BASE_URL } from '@/constants';
 import { errorType } from '~/modules/common/types';
 
 export type UserPayload = {
@@ -9,22 +10,19 @@ export type UserPayload = {
 export const loginUser = async ({
   email,
   password,
-}: UserPayload): Promise<boolean | errorType> => {
+}: UserPayload): Promise<UserType | errorType> => {
   try {
-    const response = await $fetch<{ data: boolean }>('/authentication/login', {
+    const response = await $fetch('/authentication/login', {
       method: 'POST',
       body: {
         email,
         password,
       },
-      baseURL: apiBaseUrl,
+      baseURL: API_BASE_URL,
       credentials: 'include',
     });
 
-    if (response.data) {
-      return true;
-    }
-    return false;
+    return response as UserType;
   } catch (err: any) {
     return err.data;
   }

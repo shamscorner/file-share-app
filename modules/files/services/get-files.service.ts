@@ -1,15 +1,16 @@
 import { FileType } from '../types';
 import { PaginatedDataType } from '@/modules/common/types';
-import { apiBaseUrl } from '@/constants';
+import { API_BASE_URL } from '@/constants';
 
 export const getFilesService = async (
-  page: number
+  page: number = 1,
+  ownerId: number = 0
 ): Promise<PaginatedDataType<FileType> | null> => {
   try {
     const response = await $fetch<PaginatedDataType<FileType> | null>(
-      `/database-files?page=${page}`,
+      `/database-files?ownerId=${ownerId}&page=${page}`,
       {
-        baseURL: apiBaseUrl,
+        baseURL: API_BASE_URL,
       }
     );
     return response;

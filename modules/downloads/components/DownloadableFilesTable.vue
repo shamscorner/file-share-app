@@ -22,7 +22,7 @@
             {{ $dayjs(file.downloadedAt).fromNow() }}
           </td>
           <td class="py-2">
-            <user-profile :user="file.owner" />
+            <user-profile v-if="file.owner" :user="file.owner" />
           </td>
           <td>
             <action-download-button
@@ -59,29 +59,14 @@
 </template>
 
 <script setup lang="ts">
-import { FileStatusEnum, FileType } from '~/modules/files/types';
+import { FileStatusEnum } from '~/modules/files/types';
 import { useAlertDialogStore } from '~/stores/useAlertDialog';
-import { errorType, PaginatedDataType } from '@/modules/common/types';
+import { errorType } from '@/modules/common/types';
 
 const { addAlertDialog } = useAlertDialogStore();
 const { requestActionModal, requestFileAction } = useRequestActionModal();
 
-const filesResponse = reactive<PaginatedDataType<FileType>>({
-  data: [],
-  page: 1,
-  totalCount: 0,
-});
-
-onMounted(async () => {
-  const response = await getFilesService(filesResponse.page);
-  if (!response) return;
-
-  const { data, page, totalCount } = response;
-
-  filesResponse.data = data;
-  filesResponse.page = page;
-  filesResponse.totalCount = totalCount || 0;
-});
+const { filesResponse } = reactive(useFilesResponse());
 
 const submitReason = async (reason: string) => {
   const { action, fileId } = requestActionModal;

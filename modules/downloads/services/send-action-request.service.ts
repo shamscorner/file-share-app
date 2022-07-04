@@ -1,4 +1,4 @@
-import { apiBaseUrl } from '@/constants';
+import { API_BASE_URL } from '~/constants';
 import { errorType } from '~/modules/common/types';
 
 export const sendFileActionRequest = async (
@@ -15,7 +15,7 @@ export const sendFileActionRequest = async (
           reason,
           actionType,
         },
-        baseURL: apiBaseUrl,
+        baseURL: API_BASE_URL,
         credentials: 'include',
       }
     );

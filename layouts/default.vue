@@ -1,5 +1,5 @@
 <template>
-  <v-app class="app">
+  <v-app v-if="isLoaded" class="app">
     <v-app-bar elevation="0" color="grey-darken-3" density="compact">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="ml-5" v-text="title" />
@@ -43,6 +43,8 @@
 
 <script setup lang="ts">
 import { useAlertDialogStore } from '~/stores/useAlertDialog';
+
+const { isLoaded } = useLoginComposable();
 
 const drawer = ref(true);
 const title = ref('Awesome File Sharing');
