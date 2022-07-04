@@ -119,6 +119,13 @@ const performFileOperation = async (status: FileStatusEnum) => {
     return;
   }
 
+  for (const file of filesResponse.data) {
+    if (file.id === fileId) {
+      file.status = status;
+      break;
+    }
+  }
+
   const promptMessage =
     status === FileStatusEnum.Blocked ? 'blocked' : 'opened';
 
