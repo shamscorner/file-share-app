@@ -111,7 +111,7 @@ const performFileOperation = async (status: FileStatusEnum) => {
   const fileId = confirmationModal.extra as number;
   const response = await blockOrUnblockFileService(status, fileId);
 
-  if ((response as errorType).message) {
+  if (!response.successful) {
     addAlertDialog({
       bodyText: (response as errorType).message,
       type: 'error',

@@ -10,9 +10,9 @@ export function useFilesResponse(ownerId: number = 0) {
 
   onMounted(async () => {
     const response = await getFilesService(filesResponse.page, ownerId);
-    if (!response) return;
+    if (!response.successful) return;
 
-    const { data, page, totalCount } = response;
+    const { data, page, totalCount } = response.data;
 
     filesResponse.data = data;
     filesResponse.page = page;

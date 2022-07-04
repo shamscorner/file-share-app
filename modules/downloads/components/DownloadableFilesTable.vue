@@ -76,7 +76,7 @@ const submitReason = async (reason: string) => {
 
   const response = await sendFileActionRequest(reason, action, fileId);
 
-  if ((response as errorType).message) {
+  if (!response.successful) {
     addAlertDialog({
       bodyText: (response as errorType).message,
       type: 'error',

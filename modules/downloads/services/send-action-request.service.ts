@@ -1,11 +1,11 @@
 import { API_BASE_URL } from '~/constants';
-import { errorType } from '~/modules/common/types';
+import { errorType, GlobalResponseType } from '~/modules/common/types';
 
 export const sendFileActionRequest = async (
   reason: string,
   actionType: 'block' | 'unblock',
   fileId: number
-): Promise<boolean | errorType> => {
+): Promise<GlobalResponseType<boolean> | errorType> => {
   try {
     const response = await $fetch<{ data: boolean }>(
       `/requests/files/${fileId}`,
@@ -20,10 +20,10 @@ export const sendFileActionRequest = async (
       }
     );
 
-    if (response.data) {
-      return true;
-    }
-    return false;
+    return {
+      data: !!response.data,
+      successful: true,
+    };
   } catch (err: any) {
     return err.data;
   }
