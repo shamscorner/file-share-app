@@ -4,6 +4,7 @@ specifiers:
   '@mdi/font': ^6.7.96
   '@nuxtjs/eslint-config-typescript': ^10.0.0
   '@pinia/nuxt': ^0.1.9
+  dayjs: ^1.11.3
   eslint: ^8.18.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-import: ^2.26.0
@@ -20,6 +21,7 @@ specifiers:
 dependencies:
   '@mdi/font': 6.7.96
   '@pinia/nuxt': 0.1.9_pinia@2.0.14+vue@3.2.37
+  dayjs: 1.11.3
   pinia: 2.0.14_j6bzmzd4ujpabbp5objtwxyjp4
   sass: 1.53.0
   vuetify: 3.0.0-beta.4_vue@3.2.37
@@ -1869,6 +1871,10 @@ packages:
     resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
     engines: {node: '>= 12'}
     dev: true
+
+  /dayjs/1.11.3:
+    resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

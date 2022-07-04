@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserType } from '~/features/users/types';
+import { UserType } from '~/modules/users/types';
 
 interface Props {
   user: UserType;
