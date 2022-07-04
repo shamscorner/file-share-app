@@ -13,36 +13,46 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="request in requestsList" :key="request.id">
+        <tr v-for="request in requestsResponse.data" :key="request.id">
           <td class="py-3">
-            <div>{{ request.file.fileName }}</div>
-            <div class="text-grey">- {{ request.file.fileSize }}</div>
+            <div>{{ request.file.name }}</div>
+            <div class="text-grey">
+              - {{ useHumanByteFormat(request.file.size) }}
+            </div>
           </td>
           <td>
             <file-status-chip :status="request.file.status" />
           </td>
-          <td>{{ request.file.uploadedAt }}</td>
           <td>
-            <user-profile :user="request.user" />
+            {{
+              $dayjs(request.file.downloadedAt)
+                .utc()
+                .format('DD-MM-YY | hh:mm:ss')
+            }}
           </td>
-          <td>{{ request.updatedAt }}</td>
+          <td>
+            <user-profile v-if="request.user" :user="request.user" />
+          </td>
+          <td>
+            {{ $dayjs(request.updatedAt).utc().format('DD-MM-YY | hh:mm:ss') }}
+          </td>
           <td class="py-3">{{ request.reason }}</td>
           <td>
             <action-block-button
               v-if="
                 request.file.status === FileStatusEnum.Open &&
-                request.action === RequestActionEnum.Block
+                request.actionType === RequestActionEnum.Block
               "
               class="mr-2"
-              @click.stop="openConfirmationDialog('block')"
+              @click.stop="openConfirmationDialog('block', request.id)"
             />
             <action-unblock-button
               v-if="
                 request.file.status === FileStatusEnum.Blocked &&
-                request.action === RequestActionEnum.Unblock
+                request.actionType === RequestActionEnum.Unblock
               "
               class="mr-2"
-              @click.stop="openConfirmationDialog('unblock')"
+              @click.stop="openConfirmationDialog('unblock', request.id)"
             />
             <v-btn
               rounded="pill"
@@ -50,7 +60,7 @@
               size="small"
               prepend-icon="mdi-delete"
               variant="tonal"
-              @click.stop="openConfirmationDialog('reject')"
+              @click.stop="openConfirmationDialog('reject', request.id)"
             >
               Reject
             </v-btn>
@@ -74,15 +84,12 @@
 <script setup lang="ts">
 import { RequestActionEnum, RequestType } from '../types';
 import { FileStatusEnum } from '~/modules/files/types';
+import { USER_LOCAL_KEY } from '~/constants';
 
-const requestsList = ref<RequestType[]>([]);
+const { getFromLocalStorage } = useLocalStorage();
 
-onMounted(async () => {
-  const requests = await getRequestsService();
-  if (!requests) return;
-
-  requestsList.value = requests;
-});
+const currentUser = getFromLocalStorage<RequestType>(USER_LOCAL_KEY);
+const { requestsResponse } = reactive(useRequestsResponse(currentUser.id));
 
 const actions = {
   block: () => {
