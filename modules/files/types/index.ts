@@ -5,9 +5,9 @@ export enum FileStatusEnum {
   Blocked = 'blocked',
 }
 
-export type FileActionTypes = 'block' | 'unblock' | 'edit' | 'delete';
+export type FileActionTypes = 'block' | 'unblock' | 'delete';
 
-export type FileType = {
+export interface FileType {
   id: number;
   name: string;
   size: number;
@@ -16,4 +16,4 @@ export type FileType = {
   owner: UserType;
   downloadUrl: string;
   mimeType: string;
-};
+}

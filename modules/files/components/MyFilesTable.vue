@@ -24,17 +24,17 @@
           <td>{{ $dayjs(file.downloadedAt).fromNow() }}</td>
           <td>
             <action-download-button
-              v-if="file.status === FileStatusEnum.Open"
               class="mr-2"
+              @click.stop="useDownloadFile(file.downloadUrl)"
             />
             <action-block-button
               v-if="file.status === FileStatusEnum.Open"
               class="mr-2"
-              @click.stop="openConfirmationDialog('block')"
+              @click.stop="openConfirmationDialog('block', file.id)"
             />
             <action-unblock-button
               v-if="file.status === FileStatusEnum.Blocked"
-              @click.stop="openConfirmationDialog('unblock')"
+              @click.stop="openConfirmationDialog('unblock', file.id)"
             />
           </td>
           <td>
@@ -44,7 +44,7 @@
               size="small"
               prepend-icon="mdi-delete"
               variant="tonal"
-              @click.stop="openConfirmationDialog('delete')"
+              @click.stop="openConfirmationDialog('delete', file.id)"
             >
               Delete
             </v-btn>
@@ -68,9 +68,12 @@
 <script setup lang="ts">
 import { FileStatusEnum } from '../types';
 import { USER_LOCAL_KEY } from '~/constants';
-import { UserType } from '~~/modules/users/types';
+import { UserType } from '~/modules/users/types';
+import { errorType } from '~/modules/common/types';
+import { useAlertDialogStore } from '~/stores/useAlertDialog';
 
 const { getFromLocalStorage } = useLocalStorage();
+const { addAlertDialog } = useAlertDialogStore();
 
 const currentUser = getFromLocalStorage<UserType>(USER_LOCAL_KEY);
 const { filesResponse } = reactive(useFilesResponse(currentUser.id));
@@ -91,27 +94,37 @@ const { confirmationModal, openConfirmationDialog } = useConfirmationModal({
   actions,
 });
 
-// todo: refactor to composable
-// const actions = {
-//   block: () => {
-//     console.log('blocking the file');
-//   },
-//   unblock: () => {
-//     console.log('unblocking the file');
-//   },
-//   edit: () => {
-//     console.log('updating the file');
-//   },
-//   delete: () => {
-//     console.log('deleting the file');
-//   },
-// };
-
 const performFileAction = (action: string) => {
   confirmationModal.show = false;
 
-  // todo: perform action
-  // eslint-disable-next-line no-console
-  console.log(action);
+  switch (action) {
+    case 'block':
+      performFileOperation(FileStatusEnum.Blocked);
+      break;
+    case 'unblock':
+      performFileOperation(FileStatusEnum.Open);
+    // case 'delete':
+  }
+};
+
+const performFileOperation = async (status: FileStatusEnum) => {
+  const fileId = confirmationModal.extra as number;
+  const response = await blockOrUnblockFileService(status, fileId);
+
+  if ((response as errorType).message) {
+    addAlertDialog({
+      bodyText: (response as errorType).message,
+      type: 'error',
+    });
+    return;
+  }
+
+  const promptMessage =
+    status === FileStatusEnum.Blocked ? 'blocked' : 'opened';
+
+  addAlertDialog({
+    bodyText: `File has been ${promptMessage} successfully!`,
+    type: 'success',
+  });
 };
 </script>
