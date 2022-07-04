@@ -44,7 +44,12 @@
                 request.actionType === RequestActionEnum.Block
               "
               class="mr-2"
-              @click.stop="openConfirmationDialog('block', request.id)"
+              @click.stop="
+                openConfirmationDialog('block', {
+                  requestId: request.id,
+                  fileId: request.file.id,
+                })
+              "
             />
             <action-unblock-button
               v-if="
@@ -52,7 +57,12 @@
                 request.actionType === RequestActionEnum.Unblock
               "
               class="mr-2"
-              @click.stop="openConfirmationDialog('unblock', request.id)"
+              @click.stop="
+                openConfirmationDialog('unblock', {
+                  requestId: request.id,
+                  fileId: request.file.id,
+                })
+              "
             />
             <v-btn
               rounded="pill"
@@ -114,15 +124,46 @@ const performRequestAction = (action: string) => {
   confirmationModal.show = false;
 
   switch (action) {
-    // case 'block':
-    //   performFileOperation(FileStatusEnum.Blocked);
-    //   break;
-    // case 'unblock':
-    //   performFileOperation(FileStatusEnum.Open);
-    // break;
+    case 'block':
+      performFileOperation(FileStatusEnum.Blocked);
+      break;
+    case 'unblock':
+      performFileOperation(FileStatusEnum.Open);
+      break;
     case 'reject':
       rejectRequest();
   }
+};
+
+const performFileOperation = async (status: FileStatusEnum) => {
+  const { requestId, fileId } = confirmationModal.extra as {
+    requestId: number;
+    fileId: number;
+  };
+  const response = await blockOrUnblockFileService(status, fileId, requestId);
+
+  if (!response.successful) {
+    addAlertDialog({
+      bodyText: (response as errorType).message,
+      type: 'error',
+    });
+    return;
+  }
+
+  for (const request of requestsResponse.data) {
+    if (request.id === requestId) {
+      request.file.status = status;
+      break;
+    }
+  }
+
+  const promptMessage =
+    status === FileStatusEnum.Blocked ? 'blocked' : 'opened';
+
+  addAlertDialog({
+    bodyText: `File has been ${promptMessage} successfully!`,
+    type: 'success',
+  });
 };
 
 const rejectRequest = async () => {
