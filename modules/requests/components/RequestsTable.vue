@@ -85,8 +85,11 @@
 import { RequestActionEnum, RequestType } from '../types';
 import { FileStatusEnum } from '~/modules/files/types';
 import { USER_LOCAL_KEY } from '~/constants';
+import { useAlertDialogStore } from '~/stores/useAlertDialog';
+import { errorType } from '~/modules/common/types';
 
 const { getFromLocalStorage } = useLocalStorage();
+const { addAlertDialog } = useAlertDialogStore();
 
 const currentUser = getFromLocalStorage<RequestType>(USER_LOCAL_KEY);
 const { requestsResponse } = reactive(useRequestsResponse(currentUser.id));
@@ -107,24 +110,40 @@ const { confirmationModal, openConfirmationDialog } = useConfirmationModal({
   actions,
 });
 
-// todo: refactor to composable
-// const actions = {
-//   block: () => {
-//     console.log('blocking the request');
-//   },
-//   unblock: () => {
-//     console.log('unblocking the request');
-//   },
-//   reject: () => {
-//     console.log('rejecting the request');
-//   },
-// };
-
 const performRequestAction = (action: string) => {
   confirmationModal.show = false;
 
-  // todo: perform action
-  // eslint-disable-next-line no-console
-  console.log(action);
+  switch (action) {
+    // case 'block':
+    //   performFileOperation(FileStatusEnum.Blocked);
+    //   break;
+    // case 'unblock':
+    //   performFileOperation(FileStatusEnum.Open);
+    // break;
+    case 'reject':
+      rejectRequest();
+  }
+};
+
+const rejectRequest = async () => {
+  const requestId = confirmationModal.extra as number;
+  const response = await rejectRequestService(requestId);
+
+  if (!response.successful) {
+    addAlertDialog({
+      bodyText: (response as errorType).message,
+      type: 'error',
+    });
+    return;
+  }
+
+  requestsResponse.data = requestsResponse.data.filter(
+    (request) => request.id !== requestId
+  );
+
+  addAlertDialog({
+    bodyText: 'Request has been rejected successfully!',
+    type: 'success',
+  });
 };
 </script>
