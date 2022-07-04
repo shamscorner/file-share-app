@@ -103,7 +103,9 @@ const performFileAction = (action: string) => {
       break;
     case 'unblock':
       performFileOperation(FileStatusEnum.Open);
-    // case 'delete':
+      break;
+    case 'delete':
+      deleteFile();
   }
 };
 
@@ -131,6 +133,26 @@ const performFileOperation = async (status: FileStatusEnum) => {
 
   addAlertDialog({
     bodyText: `File has been ${promptMessage} successfully!`,
+    type: 'success',
+  });
+};
+
+const deleteFile = async () => {
+  const fileId = confirmationModal.extra as number;
+  const response = await deleteFileService(fileId);
+
+  if (!response.successful) {
+    addAlertDialog({
+      bodyText: (response as errorType).message,
+      type: 'error',
+    });
+    return;
+  }
+
+  filesResponse.data = filesResponse.data.filter((file) => file.id !== fileId);
+
+  addAlertDialog({
+    bodyText: 'File has been deleted successfully!',
     type: 'success',
   });
 };
