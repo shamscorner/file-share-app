@@ -1,15 +1,12 @@
 import { UserType } from '../types';
-import { USER_LOCAL_KEY } from '~/constants';
+import { USER_LOCAL_KEY, userData } from '~/constants';
 import { useAlertDialogStore } from '~/stores/useAlertDialog';
 import { errorType } from '~/modules/common/types';
 
 export function useLoginComposable() {
   const isLoaded = ref(false);
 
-  const user = {
-    email: 'test@example.com',
-    password: 'password',
-  };
+  const user = userData;
 
   const { saveToLocalStorage } = useLocalStorage();
   const { addAlertDialog } = useAlertDialogStore();

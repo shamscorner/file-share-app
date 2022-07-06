@@ -5,7 +5,7 @@
         <tr>
           <th class="text-left">Name</th>
           <th class="text-left">Status</th>
-          <th class="text-left">Uploaded at</th>
+          <th class="text-left">Last Downloaded</th>
           <th class="text-left">Requester</th>
           <th class="text-left">Requested at</th>
           <th class="text-left">Reason</th>
@@ -37,43 +37,45 @@
             {{ $dayjs(request.updatedAt).utc().format('DD-MM-YY | hh:mm:ss') }}
           </td>
           <td class="py-3">{{ request.reason }}</td>
-          <td>
-            <action-block-button
-              v-if="
-                request.file.status === FileStatusEnum.Open &&
-                request.actionType === RequestActionEnum.Block
-              "
-              class="mr-2"
-              @click.stop="
-                openConfirmationDialog('block', {
-                  requestId: request.id,
-                  fileId: request.file.id,
-                })
-              "
-            />
-            <action-unblock-button
-              v-if="
-                request.file.status === FileStatusEnum.Blocked &&
-                request.actionType === RequestActionEnum.Unblock
-              "
-              class="mr-2"
-              @click.stop="
-                openConfirmationDialog('unblock', {
-                  requestId: request.id,
-                  fileId: request.file.id,
-                })
-              "
-            />
-            <v-btn
-              rounded="pill"
-              color="red"
-              size="small"
-              prepend-icon="mdi-delete"
-              variant="tonal"
-              @click.stop="openConfirmationDialog('reject', request.id)"
-            >
-              Reject
-            </v-btn>
+          <td class="py-3">
+            <div class="d-flex flex-column gap-4">
+              <action-block-button
+                v-if="
+                  request.file.status === FileStatusEnum.Open &&
+                  request.actionType === RequestActionEnum.Block
+                "
+                class="mr-2"
+                @click.stop="
+                  openConfirmationDialog('block', {
+                    requestId: request.id,
+                    fileId: request.file.id,
+                  })
+                "
+              />
+              <action-unblock-button
+                v-if="
+                  request.file.status === FileStatusEnum.Blocked &&
+                  request.actionType === RequestActionEnum.Unblock
+                "
+                class="mr-2"
+                @click.stop="
+                  openConfirmationDialog('unblock', {
+                    requestId: request.id,
+                    fileId: request.file.id,
+                  })
+                "
+              />
+              <v-btn
+                rounded="pill"
+                color="red"
+                size="small"
+                prepend-icon="mdi-delete"
+                variant="tonal"
+                @click.stop="openConfirmationDialog('reject', request.id)"
+              >
+                Reject
+              </v-btn>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -188,3 +190,9 @@ const rejectRequest = async () => {
   });
 };
 </script>
+
+<style scoped>
+.gap-4 {
+  gap: 16px;
+}
+</style>
