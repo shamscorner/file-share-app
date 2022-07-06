@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="request in requestsResponse.data" :key="request.id">
-          <td class="py-3" style="max-width: 200px">
+          <td class="py-3 max-text">
             <div>{{ request.file.name }}</div>
             <div class="text-grey">
               - {{ useHumanByteFormat(request.file.size) }}

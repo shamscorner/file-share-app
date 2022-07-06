@@ -99,4 +99,9 @@ const { alertDialogsRemaining, hideDialog } = useAlertDialogStore();
     opacity: 0;
   }
 }
+
+.max-text {
+  max-width: 200px;
+  word-break: break-all;
+}
 </style>

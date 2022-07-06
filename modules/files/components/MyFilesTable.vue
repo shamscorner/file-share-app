@@ -25,7 +25,11 @@
       </thead>
       <tbody>
         <tr v-for="file in filesResponse.data" :key="file.id">
-          <td class="py-2" style="max-width: 200px">{{ file.name }}</td>
+          <td class="py-2 max-text">
+            {{
+              file.name
+            }}fjoiejfoiejofiejoifjeoifjoeifjoeijfoeijfoiejfoiejfoiejofje
+          </td>
           <td>{{ useHumanByteFormat(file.size) }}</td>
           <td>
             <file-status-chip :status="file.status" />
